@@ -1,0 +1,17 @@
+# Single-container Airflow (standalone mode) for local development.
+# UI: http://localhost:8080  (the admin password is printed in the logs at first start)
+services:
+  airflow:
+    build: .
+    command: standalone
+    ports:
+      - "8080:8080"
+    environment:
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      PIPELINE_HOME: /opt/pipeline
+      PYTHONPATH: /opt/pipeline
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./pipeline:/opt/pipeline/pipeline
+      - ./sql:/opt/pipeline/sql
+      - ./data:/opt/pipeline/data
